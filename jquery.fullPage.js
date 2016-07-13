@@ -111,6 +111,10 @@
 		return returnVal;
 	}
 	
+	var customtest = BodyPadVert();
+	console.log(BodyPadVert());
+	console.log(customtest);
+	
     $.fn.fullpage = function(options) {
         //only once my friend!
         if($('html').hasClass(ENABLED)){ displayWarnings(); return; }
