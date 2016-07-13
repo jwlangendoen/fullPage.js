@@ -106,14 +106,10 @@
         hoverCheck = false;
     });
 	
-	var BodyPadVert = function(){
-		var returnVal = $(body).outerWidth() - $(body).innerWidth();
-		return returnVal;
-	}
+	var BodyPadVert = $window.height() - 80;
 	
-	var customtest = BodyPadVert();
-	console.log(BodyPadVert());
-	console.log(customtest);
+	console.log(BodyPadVert);
+
 	
     $.fn.fullpage = function(options) {
         //only once my friend!
@@ -198,7 +194,7 @@
         var isTouchDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|playbook|silk|BlackBerry|BB10|Windows Phone|Tizen|Bada|webOS|IEMobile|Opera Mini)/);
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
         var container = $(this);
-        var windowsHeight = $window.height() - BodyPadVert();
+        var windowsHeight = $window.height() - BodyPadVert;
         var isResizing = false;
         var isWindowFocused = true;
         var lastScrolledDestiny;
@@ -441,7 +437,7 @@
 
             isResizing = true;
 
-            windowsHeight = $window.height() - BodyPadVert();  //updating global var
+            windowsHeight = $window.height() - BodyPadVert;  //updating global var
 
             $(SECTION_SEL).each(function(){
                 var slidesWrap = $(this).find(SLIDES_WRAPPER_SEL);
