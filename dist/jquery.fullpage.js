@@ -106,7 +106,7 @@
         hoverCheck = false;
     });
 	
-	var BodyPadVert = $window.height() - 80;
+	var BodyPadVert = 80;
 	
 	console.log(BodyPadVert);
 
@@ -627,7 +627,7 @@
             $('html').addClass(ENABLED);
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
-            windowsHeight = $window.height() /2;
+            windowsHeight = $window.height() - BodyPadVert;
 
             container.removeClass(DESTROYED); //in case it was destroyed before initilizing it again
 
