@@ -96,7 +96,21 @@
         fadeScrollbars: false,
         disableMouse: true
     };
-
+	
+	//custom code
+	var hoverCheck = false;
+	$('#fullpage').hover(function(){
+        hoverCheck = true;
+    },
+    function(){
+        hoverCheck = false;
+    });
+	
+	var BodyPadVert = function(){
+		var returnVal = $(body).outerWidth() - $(body).innerWidth();
+		return returnVal;
+	}
+	
     $.fn.fullpage = function(options) {
         //only once my friend!
         if($('html').hasClass(ENABLED)){ displayWarnings(); return; }
@@ -180,7 +194,7 @@
         var isTouchDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|playbook|silk|BlackBerry|BB10|Windows Phone|Tizen|Bada|webOS|IEMobile|Opera Mini)/);
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
         var container = $(this);
-        var windowsHeight = $window.height();
+        var windowsHeight = $window.height() - BodyPadVert();
         var isResizing = false;
         var isWindowFocused = true;
         var lastScrolledDestiny;
@@ -423,7 +437,7 @@
 
             isResizing = true;
 
-            windowsHeight = $window.height();  //updating global var
+            windowsHeight = $window.height() - BodyPadVert();  //updating global var
 
             $(SECTION_SEL).each(function(){
                 var slidesWrap = $(this).find(SLIDES_WRAPPER_SEL);
@@ -613,7 +627,7 @@
             $('html').addClass(ENABLED);
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
-            windowsHeight = $window.height();
+            windowsHeight = $window.height() /2;
 
             container.removeClass(DESTROYED); //in case it was destroyed before initilizing it again
 
@@ -888,9 +902,9 @@
 
         //when scrolling...
         function scrollHandler(){
-            var currentSection;
 
-            if(!options.autoScrolling || options.scrollBar){
+			console.log("scrollhandler: " + hoverCheck);	
+            if(!options.autoScrolling || options.scrollBar && hoverCheck){
                 var currentScroll = $window.scrollTop();
                 var scrollDirection = getScrollDirection(currentScroll);
                 var visibleSectionIndex = 0;
@@ -1190,7 +1204,7 @@
             var isNormalScroll = $(COMPLETELY_SEL).hasClass(NORMAL_SCROLL);
 
             //autoscrolling and not zooming?
-            if(options.autoScrolling && !controlPressed && !isNormalScroll){
+            if(options.autoScrolling && !controlPressed && !isNormalScroll && hoverCheck){
                 // cross-browser wheel delta
                 e = e || window.event;
                 var value = e.wheelDelta || -e.deltaY || -e.detail;
@@ -2925,5 +2939,7 @@
             return '<div class="' + SCROLLABLE + '"><div class="fp-scroller"></div></div>';
         }
     };
+	
+
 
 });
