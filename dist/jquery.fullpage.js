@@ -106,7 +106,7 @@
         hoverCheck = false;
     });
 	
-	var BodyPadVert = 80;
+	var BodyPadVert = 80 + 73;
 	
 	console.log(BodyPadVert);
 
@@ -194,7 +194,9 @@
         var isTouchDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|playbook|silk|BlackBerry|BB10|Windows Phone|Tizen|Bada|webOS|IEMobile|Opera Mini)/);
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
         var container = $(this);
-        var windowsHeight = $window.height() - BodyPadVert;
+        var windowsHeight = function(){
+			return $window.height() - BodyPadVert;
+		}
         var isResizing = false;
         var isWindowFocused = true;
         var lastScrolledDestiny;
@@ -437,7 +439,9 @@
 
             isResizing = true;
 
-            windowsHeight = $window.height() - BodyPadVert;  //updating global var
+            windowsHeight = function(){
+				return $window.height() - BodyPadVert;
+			}  //updating global var
 
             $(SECTION_SEL).each(function(){
                 var slidesWrap = $(this).find(SLIDES_WRAPPER_SEL);
@@ -448,7 +452,8 @@
                     $(this).find(TABLE_CELL_SEL).css('height', getTableHeight($(this)) + 'px');
                 }
 
-                $(this).css('height', windowsHeight + 'px');
+                $(this).css('height', windowsHeight() + 'px');
+				console.log('resize' + windowsHeight());
 
                 //resizing the scrolling divs
                 if(options.scrollOverflow){
@@ -627,7 +632,9 @@
             $('html').addClass(ENABLED);
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
-            windowsHeight = $window.height() - BodyPadVert;
+            windowsHeight = function(){
+				return $window.height() - BodyPadVert;
+			};
 
             container.removeClass(DESTROYED); //in case it was destroyed before initilizing it again
 
@@ -726,7 +733,7 @@
                 section.addClass(ACTIVE);
             }
 
-            section.css('height', windowsHeight + 'px');
+            section.css('height', windowsHeight() + 'px');
 
             if(options.paddingTop){
                 section.css('padding-top', options.paddingTop);
@@ -1328,11 +1335,11 @@
             //top of the desination will be at the top of the viewport
             var position = elemPosition.top;
             var isScrollingDown =  elemPosition.top > previousDestTop;
-            var sectionBottom = position - windowsHeight + element.outerHeight();
+            var sectionBottom = position - windowsHeight() + element.outerHeight();
             var bigSectionsDestination = options.bigSectionsDestination;
 
             //is the destination element bigger than the viewport?
-            if(element.outerHeight() > windowsHeight){
+            if(element.outerHeight() > windowsHeight()){
                 //scrolling up? 
                 if(!isScrollingDown && !bigSectionsDestination || bigSectionsDestination === 'bottom' ){
                     position = sectionBottom;
@@ -1937,7 +1944,7 @@
             slidesNav.find('li').eq(slideIndex).find('a').addClass(ACTIVE);
         }
 
-        var previousHeight = windowsHeight;
+        var previousHeight = windowsHeight();
 
         //when resizing the site, we adjust the heights of the sections, slimScroll...
         function resizeHandler(){
@@ -1953,7 +1960,7 @@
                     var currentHeight = $window.height();
 
                     //making sure the change in the viewport size is enough to force a rebuild. (20 % of the window to avoid problems when hidding scroll bars)
-                    if( Math.abs(currentHeight - previousHeight) > (20 * Math.max(previousHeight, currentHeight) / 100) ){
+                    if( Math.abs(currentHeight - previousHeight) > (10 * Math.max(previousHeight, currentHeight) / 100) ){
                         FP.reBuild(true);
                         previousHeight = currentHeight;
                     }
@@ -2104,7 +2111,7 @@
                 }
             }
 
-            var scrollHeight = windowsHeight - parseInt(section.css('padding-bottom')) - parseInt(section.css('padding-top'));
+            var scrollHeight = windowsHeight() - parseInt(section.css('padding-bottom')) - parseInt(section.css('padding-top'));
 
             //needs scroll?
             if ( contentHeight > scrollHeight) {
@@ -2136,7 +2143,7 @@
         }
 
         function getTableHeight(element){
-            var sectionHeight = windowsHeight;
+            var sectionHeight = windowsHeight();
 
             if(options.paddingTop || options.paddingBottom){
                 var section = element;
@@ -2145,7 +2152,7 @@
                 }
 
                 var paddings = parseInt(section.css('padding-top')) + parseInt(section.css('padding-bottom'));
-                sectionHeight = (windowsHeight - paddings);
+                sectionHeight = (windowsHeight() - paddings);
             }
 
             return sectionHeight;
