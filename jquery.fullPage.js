@@ -18,7 +18,7 @@
     }
 })(typeof window !== 'undefined' ? window : this, function($, window, document, Math, undefined) {
     'use strict';
-
+	
     // keeping central set of classnames and selectors
     var WRAPPER =               'fullpage-wrapper';
     var WRAPPER_SEL =           '.' + WRAPPER;
@@ -106,7 +106,41 @@
         hoverCheck = false;
     });
 	
-	var BodyPadVert = 80 + 73;
+
+	var BodyPadVert = 80 + 73;	
+	var currMediaSize;
+	var currMqIdx;
+	var mqDetector = $("#mq-detector");
+	var mqSelectors = [
+		mqDetector.find(".visible-xs"),
+		mqDetector.find(".visible-sm"),
+		mqDetector.find(".visible-md"),
+		mqDetector.find(".visible-lg")
+	];
+		
+	var checkForResize = function() {
+		for (var i = 0; i <= mqSelectors.length; i++) {
+			if (mqSelectors[i].is(":visible")) {
+				if (currMqIdx !== i) {
+					currMqIdx = i;
+					currMediaSize = mqSelectors[i].attr("class");
+					console.log(currMediaSize);
+				}
+				break;
+			}
+		}
+	};
+	var setBodyPadVert = function() {
+		if(currMediaSize === "visible-xs"){
+			BodyPadVert = 73;
+		} else{
+			BodyPadVert = 80 + 73;
+		}
+	};
+	$(window).on('resize', checkForResize);
+	checkForResize();
+	$(window).on('resize', setBodyPadVert);
+	setBodyPadVert();
 	
 	console.log(BodyPadVert);
 
