@@ -107,7 +107,7 @@
     });
 	
 
-	var BodyPadVert = 80 + 73;	
+	var BodyPadVert = 80 + 73 + 120;	
 	var currMediaSize;
 	var currMqIdx;
 	var mqDetector = $("#mq-detector");
@@ -229,7 +229,7 @@
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
         var container = $(this);
         var windowsHeight = function(){
-			return $window.height() - BodyPadVert;
+			return $window.height() - BodyPadVert - 120;
 		}
         var isResizing = false;
         var isWindowFocused = true;
@@ -474,7 +474,7 @@
             isResizing = true;
 
             windowsHeight = function(){
-				return $window.height() - BodyPadVert;
+				return $window.height() - BodyPadVert - 120;
 			}  //updating global var
 
             $(SECTION_SEL).each(function(){
@@ -667,7 +667,7 @@
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
             windowsHeight = function(){
-				return $window.height() - BodyPadVert;
+				return $window.height() - BodyPadVert  - 120;
 			};
 
             container.removeClass(DESTROYED); //in case it was destroyed before initilizing it again
