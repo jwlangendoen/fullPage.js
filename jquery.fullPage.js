@@ -107,7 +107,7 @@
     });
 	
 
-	var BodyPadVert = 80 + 73 + 120;	
+	var BodyPadVert = 80 + 73;	
 	var currMediaSize;
 	var currMqIdx;
 	var mqDetector = $("#mq-detector");
