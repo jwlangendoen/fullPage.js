@@ -107,7 +107,7 @@
     });
 	
 
-	var BodyPadVert = 80 + 73 + 120;	
+	var BodyPadVert = 80 + 73;	
 	var currMediaSize;
 	var currMqIdx;
 	var mqDetector = $("#mq-detector");
@@ -1367,7 +1367,7 @@
             var elemPosition = element.position();
 
             //top of the desination will be at the top of the viewport
-            var position = elemPosition.top;
+            var position = position - windowsHeight() + element.outerHeight();
             var isScrollingDown =  elemPosition.top > previousDestTop;
             var sectionBottom = position - windowsHeight() + element.outerHeight();
             var bigSectionsDestination = options.bigSectionsDestination;
