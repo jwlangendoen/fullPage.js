@@ -107,7 +107,7 @@
     });
 	
 
-	var BodyPadVert = 80 + 73;	
+	var BodyPadVert = 80;	
 	var currMediaSize;
 	var currMqIdx;
 	var mqDetector = $("#mq-detector");
@@ -132,9 +132,9 @@
 	};
 	var setBodyPadVert = function() {
 		if(currMediaSize === "visible-xs"){
-			BodyPadVert = 73;
+			BodyPadVert = 0;
 		} else{
-			BodyPadVert = 80 + 73;
+			BodyPadVert = 80;
 		}
 	};
 	$(window).on('resize', checkForResize);
