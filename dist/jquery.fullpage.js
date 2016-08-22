@@ -124,7 +124,6 @@
 				if (currMqIdx !== i) {
 					currMqIdx = i;
 					currMediaSize = mqSelectors[i].attr("class");
-					console.log(currMediaSize);
 				}
 				break;
 			}
@@ -142,7 +141,6 @@
 	$(window).on('resize', setBodyPadVert);
 	setBodyPadVert();
 	
-	console.log(BodyPadVert);
 
 	
     $.fn.fullpage = function(options) {
@@ -487,7 +485,6 @@
                 }
 
                 $(this).css('height', windowsHeight() + 'px');
-				console.log('resize' + windowsHeight());
 
                 //resizing the scrolling divs
                 if(options.scrollOverflow){
@@ -943,8 +940,7 @@
 
         //when scrolling...
         function scrollHandler(){
-
-			console.log("scrollhandler: " + hoverCheck);	
+	
             if(!options.autoScrolling || options.scrollBar && hoverCheck){
                 var currentScroll = $window.scrollTop();
                 var scrollDirection = getScrollDirection(currentScroll);
@@ -1393,7 +1389,6 @@
             of the viewport.
             */
             previousDestTop = position;
-			console.log(position);
             return position;
         }
 
